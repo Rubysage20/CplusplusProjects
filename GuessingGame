@@ -1,0 +1,80 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+
+//Function to generate a random number within a specified range
+
+int gRandomNum(int lower, int upper) {
+  return rand() % (upper - lower + 1) + lower;
+}
+
+// Function to play the number guessing game
+void playGame(int lower, int upper, int maxAttempts) {
+  int secretNumber = gRandomNum(lower, upper);
+  int guess, attempts = 0;
+
+
+//Loop until the player runs out of attempts 
+while(attempts < maxAttempts) {
+  std::cout << "Enter your guess between " << lower << " and " << upper << ":";
+  std::cin >> guess;
+
+  attempts ++;
+
+  if (guess == secretNumber) {
+    std::cout << "Congratulations! You guessed the correct number in " << attempts << " attempts." << std::endl;
+    int score = maxAttempts - attempts;
+    std::cout << "Your score is: " << score << std::endl;
+  }else if(guess < secretNumber) {
+    std::cout << "Try a higher number." << std::endl;
+  }else {
+    std::cout<< "Try a lower number." << std::endl; 
+  }
+}
+  std::cout << "Out of attempts! The correct number was:" << secretNumber << std::endl;
+}
+
+int main() {
+  srand(time(0)); // Seed the random number generator
+
+  while (true) {
+    std::string difficulty;
+    int lower, upper, maxAttempts;
+  
+    std::cout << "Choose a difficulty level (easy, medium, hard):";
+    std::cin >> difficulty;
+
+    // Set the range and attempts based on the selected difficulty level
+    if (difficulty == "easy") {
+      lower = 1;
+      upper = 10;
+      maxAttempts = 7;
+
+    }else if (difficulty == "medium") {
+      lower = 1;
+      upper = 50;
+      maxAttempts = 5;
+
+    }else if (difficulty == "hard") {
+      lower = 1;
+      upper = 100;
+      maxAttempts = 3;
+
+    }else{
+      std::cout << "Invalid difficulty level. Please try again." << std::endl;
+      continue;
+    }
+      // Play the game with specified difficulty level
+    playGame(lower, upper, maxAttempts);
+
+    char playAgain;
+    std::cout << "Do you want to play again? (y/n):";
+    std:: cin >> playAgain;
+
+    if (playAgain != 'y' && playAgain != 'Y') {
+      break;
+    }
+    }
+  return 0;
+    }
+  
